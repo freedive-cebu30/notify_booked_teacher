@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @teacher.name %>
+</p>
+
+<p>
+  <strong>Online teacher:</strong>
+  <%= @teacher.online_teacher_id %>
+</p>
+
+<p>
+  <strong>Service name:</strong>
+  <%= @teacher.service_name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @teacher.user %>
+</p>
+
+<p>
+  <strong>Deleted:</strong>
+  <%= @teacher.deleted %>
+</p>
+
+<%= link_to 'Edit', edit_teacher_path(@teacher) %> |
+<%= link_to 'Back', teachers_path %>

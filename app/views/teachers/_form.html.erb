@@ -1,0 +1,15 @@
+<%= simple_form_for(@teacher) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :online_teacher_id %>
+    <%= f.input :service_name %>
+    <%= f.association :user %>
+    <%= f.input :deleted %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
