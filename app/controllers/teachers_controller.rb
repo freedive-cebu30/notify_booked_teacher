@@ -4,7 +4,7 @@ class TeachersController < ApplicationController
   # GET /teachers
   # GET /teachers.json
   def index
-    @teachers = Teacher.all
+    @teachers = current_user.teachers
   end
 
   # GET /teachers/1
@@ -24,13 +24,19 @@ class TeachersController < ApplicationController
   # POST /teachers
   # POST /teachers.json
   def create
-    @teacher = Teacher.new(teacher_params)
+    @teacher = Teacher.find_or_create_by(online_teacher_id: teacher_params[:online_teacher_id], service_name: teacher_params[:service_name])
+    @teacher.name = teacher_params[:name]  unless @teacher.name
+    favorite_teacher = FavoriteTeacher.find_or_create_by(user_id: current_user.id, teacher_id: @teacher.id)
 
     respond_to do |format|
-      if @teacher.save
+      begin
+      @teacher.class.transaction do
+        @teacher.save!
+        favorite_teacher.save!
+      end
         format.html { redirect_to @teacher, notice: 'Teacher was successfully created.' }
         format.json { render :show, status: :created, location: @teacher }
-      else
+      rescue => e
         format.html { render :new }
         format.json { render json: @teacher.errors, status: :unprocessable_entity }
       end
@@ -54,7 +60,8 @@ class TeachersController < ApplicationController
   # DELETE /teachers/1
   # DELETE /teachers/1.json
   def destroy
-    @teacher.destroy
+    favorite_teacher = FavoriteTeacher.where(user_id: current_user.id).where(teacher_id: @teacher.id).first
+    favorite_teacher.destroy
     respond_to do |format|
       format.html { redirect_to teachers_url, notice: 'Teacher was successfully destroyed.' }
       format.json { head :no_content }
@@ -69,6 +76,6 @@ class TeachersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
-      params.require(:teacher).permit(:name, :online_teacher_id, :service_name, :user_id, :deleted)
+      params.require(:teacher).permit(:name, :online_teacher_id, :service_name)
     end
 end

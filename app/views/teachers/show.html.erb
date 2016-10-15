@@ -15,15 +15,5 @@
   <%= @teacher.service_name %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @teacher.user %>
-</p>
-
-<p>
-  <strong>Deleted:</strong>
-  <%= @teacher.deleted %>
-</p>
-
 <%= link_to 'Edit', edit_teacher_path(@teacher) %> |
 <%= link_to 'Back', teachers_path %>
