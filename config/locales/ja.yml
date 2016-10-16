@@ -31,3 +31,4 @@ ja:
     service_name: "サービス名"
     list: "講師一覧"
     register: "講師登録"
+    created: "登録しました"

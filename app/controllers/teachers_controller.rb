@@ -24,23 +24,22 @@ class TeachersController < ApplicationController
   # POST /teachers
   # POST /teachers.json
   def create
-    @teacher = Teacher.find_or_create_by(online_teacher_id: teacher_params[:online_teacher_id], service_name: teacher_params[:service_name])
-    @teacher.name = teacher_params[:name]  unless @teacher.name
-    favorite_teacher = FavoriteTeacher.find_or_create_by(user_id: current_user.id, teacher_id: @teacher.id)
-
-    respond_to do |format|
-      begin
-      @teacher.class.transaction do
+      Teacher.transaction do
+        @teacher = Teacher.find_or_create_by(online_teacher_id: teacher_params[:online_teacher_id], service_name: teacher_params[:service_name])
+        @teacher.name = teacher_params[:name]
         @teacher.save!
+        favorite_teacher = FavoriteTeacher.find_or_create_by(user_id: current_user.id, teacher_id: @teacher.id)
         favorite_teacher.save!
       end
-        format.html { redirect_to @teacher, notice: 'Teacher was successfully created.' }
-        format.json { render :show, status: :created, location: @teacher }
-      rescue => e
-        format.html { render :new }
-        format.json { render json: @teacher.errors, status: :unprocessable_entity }
+
+      respond_to do |format|
+       format.html { redirect_to @teacher, notice: t('teacher.created') }
       end
-    end
+    rescue => e
+      logger.debug e
+      respond_to do |format|
+       format.html { render :new }
+      end
   end
 
   # PATCH/PUT /teachers/1
@@ -49,10 +48,8 @@ class TeachersController < ApplicationController
     respond_to do |format|
       if @teacher.update(teacher_params)
         format.html { redirect_to @teacher, notice: 'Teacher was successfully updated.' }
-        format.json { render :show, status: :ok, location: @teacher }
       else
         format.html { render :edit }
-        format.json { render json: @teacher.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -64,7 +61,6 @@ class TeachersController < ApplicationController
     favorite_teacher.destroy
     respond_to do |format|
       format.html { redirect_to teachers_url, notice: 'Teacher was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

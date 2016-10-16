@@ -33,16 +33,18 @@
 
       <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active">
+              <%= display_active_li(controller.action_name, 'index') %>
                 <%= link_to t('teacher.list') , teachers_path%>
               </li>
-              <li>
+             <%= display_active_li(controller.action_name, 'new') %>
                 <%= link_to t('teacher.register'), new_teacher_path %>
               </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <%= link_to t('signed_out'), destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
-            </ul>
+            <% if user_signed_in? %>
+              <ul class="nav navbar-nav navbar-right">
+                <%= link_to t('signed_out'), destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
+              </ul>
+            <% end %>
           </div><!--/.nav-collapse -->
           </div><!--/.container-fluid -->
       </nav>
