@@ -16,12 +16,17 @@ namespace :search do
     Teacher.all.each do |teacher|
       case teacher.service_name
       when 'dmm'
+        Rails.logger.debug "19::#{teacher.id}-------------------------------------"
         session.visit "http://#{HOST}/teacher/index/#{teacher.online_teacher_id}/"
         opend_teacher = session.html.include?(">予約可</a>")
       when 'rarejob'
       end
         if opend_teacher
-          UserMailer.notify_teacher(teacher).deliver_now
+          Rails.logger.debug "25::#{teacher.id}-------------------------------------"
+          teacher.users.each do |user|
+            Rails.logger.debug "27::#{user.id}-------------------------------------"
+            UserMailer.notify_teacher(teacher, user).deliver_now
+          end
         end
     end
   end

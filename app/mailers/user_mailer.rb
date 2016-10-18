@@ -13,6 +13,8 @@ class UserMailer < ApplicationMailer
   end
 
   def notify_teacher(teacher, user)
+    Rails.logger.debug "User::#{teacher.id}-------------------------------------"
+    Rails.logger.debug "User::#{user.email}-------------------------------------"
     @teacher = teacher
     email = user.email
     mail to:  email, subject: "#{@teacher.name}が空いています"
