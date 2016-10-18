@@ -12,9 +12,9 @@ class UserMailer < ApplicationMailer
     # mail to: "joji.urano@bibo.com.ph"
   end
 
-  def notify_teacher(teacher)
+  def notify_teacher(teacher, user)
     @teacher = teacher
-    email = "jyouji1979@gmail.com"
+    email = user.email
     mail to:  email, subject: "#{@teacher.name}が空いています"
   end
 end

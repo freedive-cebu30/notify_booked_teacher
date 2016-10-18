@@ -1,5 +1,6 @@
 class Teacher < ApplicationRecord
-  has_many :users
+  has_many :favorite_teachers
+  has_many :users, through: :favorite_teachers
   validates :name,
                    presence: true,
                    length: { maximum: 20 }

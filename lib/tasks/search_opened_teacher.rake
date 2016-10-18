@@ -16,7 +16,6 @@ namespace :search do
     Teacher.all.each do |teacher|
       case teacher.service_name
       when 'dmm'
-        puts teacher.id
         session.visit "http://#{HOST}/teacher/index/#{teacher.online_teacher_id}/"
         opend_teacher = session.html.include?(">予約可</a>")
       when 'rarejob'
