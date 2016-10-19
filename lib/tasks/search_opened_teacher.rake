@@ -21,14 +21,18 @@ namespace :search do
         target = ">予約可</a>"
         session.visit "http://#{DMM_HOST}/teacher/index/#{teacher.online_teacher_id}/"
         opend_teacher = session.html.include?(target)
-        params = { lesson_number: session.html.scan(target).size } if opend_teacher
-        params[:service_name] = 'dmm'
+        if opend_teacher
+          params = { lesson_number: session.html.scan(target).size }
+          params[:service_name] = 'dmm'
+        end
       when 'rarejob'
         target = "reserveBtn"
         session.visit "http://#{RAREJOB_HOST}/teacher_detail/#{teacher.online_teacher_id}/"
         opend_teacher = session.html.include?(target)
-        params = { lesson_number: session.html.scan(target).size } if opend_teacher
-        params[:service_name] = 'rarejob'
+        if opend_teacher
+          params = { lesson_number: session.html.scan(target).size }
+          params[:service_name] = 'rarejob'
+        end
       end
         if opend_teacher
           teacher.users.each do |user|
