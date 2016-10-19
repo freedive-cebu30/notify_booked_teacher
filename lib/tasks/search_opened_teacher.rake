@@ -22,11 +22,13 @@ namespace :search do
         session.visit "http://#{DMM_HOST}/teacher/index/#{teacher.online_teacher_id}/"
         opend_teacher = session.html.include?(target)
         params = { lesson_number: session.html.scan(target).size } if opend_teacher
+        params[:service_name] = 'dmm'
       when 'rarejob'
         target = "reserveBtn"
         session.visit "http://#{RAREJOB_HOST}/teacher_detail/#{teacher.online_teacher_id}/"
         opend_teacher = session.html.include?(target)
         params = { lesson_number: session.html.scan(target).size } if opend_teacher
+        params[:service_name] = 'rarejob'
       end
         if opend_teacher
           teacher.users.each do |user|
