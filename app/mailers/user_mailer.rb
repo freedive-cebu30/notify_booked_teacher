@@ -12,11 +12,10 @@ class UserMailer < ApplicationMailer
     # mail to: "joji.urano@bibo.com.ph"
   end
 
-  def notify_teacher(teacher, user)
-    Rails.logger.debug "User::#{teacher.id}-------------------------------------"
-    Rails.logger.debug "User::#{user.email}-------------------------------------"
+  def notify_teacher(teacher, user, params = {})
     @teacher = teacher
+    @lesson_number = params[:lesson_number] if params[:lesson_number]
     email = user.email
-    mail to:  email, subject: "#{@teacher.name}が空いています"
+    mail to:  email, subject: "#{@teacher.name}が#{@lesson_number}空いています"
   end
 end

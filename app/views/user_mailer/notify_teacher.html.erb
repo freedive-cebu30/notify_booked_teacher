@@ -1,7 +1,7 @@
-<h3>
-  <%= link_to "#{@teacher.name}のレッスンが空いています", "http://eikaiwa.dmm.com/teacher/index/#{@teacher.online_teacher_id}/" %>
-</h3>
-<h3>
-  <%= link_to "#{@teacher.name}のレッスンが空いています(携帯用)", "http://eikaiwa.dmm.com/teacher/schedule/#{@teacher.online_teacher_id}/" %>
-</h3>
+<h5>
+  <%= link_to "#{@teacher.name}のレッスンが#{@lesson_number}空いています", "http://eikaiwa.dmm.com/teacher/index/#{@teacher.online_teacher_id}/" %>
+</h5>
+<h5>
+  <%= link_to "#{@teacher.name}のレッスンが#{@lesson_number}空いています(携帯用)", "http://eikaiwa.dmm.com/teacher/schedule/#{@teacher.online_teacher_id}/" %>
+</h5>
 
