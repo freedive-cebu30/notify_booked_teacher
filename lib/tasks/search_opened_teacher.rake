@@ -1,5 +1,7 @@
 require 'capybara/poltergeist'
-HOST = 'eikaiwa.dmm.com'
+DMM_HOST = 'eikaiwa.dmm.com'
+RAREJOB_HOST = 'www.rarejob.com'
+
 namespace :search do
   desc 'seach opened teacher'
   task :opened_teacher => :environment do
@@ -16,12 +18,17 @@ namespace :search do
     Teacher.all.each do |teacher|
       case teacher.service_name
       when 'dmm'
-        session.visit "http://#{HOST}/teacher/index/#{teacher.online_teacher_id}/"
-        opend_teacher = session.html.include?(">予約可</a>")
+        target = ">予約可</a>"
+        session.visit "http://#{DMM_HOST}/teacher/index/#{teacher.online_teacher_id}/"
+        opend_teacher = session.html.include?(target)
+        params = { lesson_number: session.html.scan(target).size } if opend_teacher
       when 'rarejob'
+        target = "reserveBtn"
+        session.visit "http://#{RAREJOB_HOST}/teacher_detail/#{teacher.online_teacher_id}/"
+        opend_teacher = session.html.include?(target)
+        params = { lesson_number: session.html.scan(target).size } if opend_teacher
       end
         if opend_teacher
-          params = { lesson_number: session.html.scan(">予約可</a>").size }
           teacher.users.each do |user|
             UserMailer.notify_teacher(teacher, user, params).deliver_now
           end

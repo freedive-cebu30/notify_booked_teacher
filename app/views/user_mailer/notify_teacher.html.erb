@@ -1,7 +1,9 @@
 <h5>
-  <%= link_to "#{@teacher.name}のレッスンが#{@lesson_number}空いています", "http://eikaiwa.dmm.com/teacher/index/#{@teacher.online_teacher_id}/" %>
+  <%= link_to "#{@teacher.name}のレッスンが#{@lesson_number}空いています", @landing_page %>
 </h5>
+<% if @m_landing_page %>
 <h5>
-  <%= link_to "#{@teacher.name}のレッスンが#{@lesson_number}空いています(携帯用)", "http://eikaiwa.dmm.com/teacher/schedule/#{@teacher.online_teacher_id}/" %>
+  <%= link_to "#{@teacher.name}のレッスンが#{@lesson_number}空いています(携帯用)", @m_landing_page %>
 </h5>
+<% end %>
 

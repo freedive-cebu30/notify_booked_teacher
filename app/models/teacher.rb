@@ -9,5 +9,5 @@ class Teacher < ApplicationRecord
                    length: { maximum: 10 }
   validates :service_name,
                     presence: true,
-                    inclusion: { in: %w(dmm) }
+                    inclusion: { in: %w(dmm rarejob) }
 end

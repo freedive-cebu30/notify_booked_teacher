@@ -15,6 +15,13 @@ class UserMailer < ApplicationMailer
   def notify_teacher(teacher, user, params = {})
     @teacher = teacher
     @lesson_number = params[:lesson_number] if params[:lesson_number]
+    if params[:service_name] == 'dmm'
+     @landing_page = "http://eikaiwa.dmm.com/teacher/index/#{@teacher.online_teacher_id}/"
+     @m_landing_page = "http://eikaiwa.dmm.com/teacher/schedule/#{@teacher.online_teacher_id}/"
+    elsif params[:service_name] == 'rarejob'
+     @landing_page = "http://www.rarejob.com/teacher_detail/#{@teacher.online_teacher_id}/"
+     @m_landing_page = nil
+    end
     email = user.email
     mail to:  email, subject: "#{@teacher.name}が#{@lesson_number}空いています"
   end
