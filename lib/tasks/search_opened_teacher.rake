@@ -21,9 +21,9 @@ namespace :search do
       when 'rarejob'
       end
         if opend_teacher
-          lesson_number = session.html.scan(">予約可</a>").size
+          params[:lesson_number] = session.html.scan(">予約可</a>").size
           teacher.users.each do |user|
-            UserMailer.notify_teacher(teacher, user, lesson_number).deliver_now
+            UserMailer.notify_teacher(teacher, user, params).deliver_now
           end
         end
     end
