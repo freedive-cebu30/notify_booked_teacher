@@ -23,6 +23,6 @@ class UserMailer < ApplicationMailer
      @m_landing_page = nil
     end
     email = user.email
-    mail to:  email, subject: "#{@teacher.name}が#{@lesson_number}空いています"
+    mail to:  email, subject: "#{@teacher.name}が#{@lesson_number}スロット空いています"
   end
 end
