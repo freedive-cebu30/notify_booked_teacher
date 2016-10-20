@@ -13,15 +13,16 @@ namespace :search do
     session.driver.headers = {
         'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2564.97 Safari/537.36'
     }
+    crawler = Eikaiwa::Crawler.new(session)
     Teacher.all.each do |teacher|
       opend_teacher, params =
         case teacher.service_name
         when 'dmm'
-          Eikaiwa::Crawler.run_dmm(teacher)
+          crawler.run_dmm(teacher)
         when 'rarejob'
-          Eikaiwa::Crawler.run_rarejob(teacher)
+          crawler.run_rarejob(teacher)
         when 'sankei'
-          Eikaiwa::Crawler.run_sankei(teacher)
+          crawler.run_sankei(teacher)
         end
 
       if opend_teacher
