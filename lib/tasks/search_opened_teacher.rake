@@ -1,6 +1,4 @@
 require 'capybara/poltergeist'
-DMM_HOST = 'eikaiwa.dmm.com'
-RAREJOB_HOST = 'www.rarejob.com'
 
 namespace :search do
   desc 'seach opened teacher'
@@ -16,29 +14,21 @@ namespace :search do
         'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2564.97 Safari/537.36'
     }
     Teacher.all.each do |teacher|
-      case teacher.service_name
-      when 'dmm'
-        target = ">予約可</a>"
-        session.visit "http://#{DMM_HOST}/teacher/index/#{teacher.online_teacher_id}/"
-        opend_teacher = session.html.include?(target)
-        if opend_teacher
-          params = { lesson_number: session.html.scan(target).size }
-          params[:service_name] = 'dmm'
+      opend_teacher, params =
+        case teacher.service_name
+        when 'dmm'
+          Eikaiwa::Crawler.run_dmm(teacher)
+        when 'rarejob'
+          Eikaiwa::Crawler.run_rarejob(teacher)
+        when 'sankei'
+          Eikaiwa::Crawler.run_sankei(teacher)
         end
-      when 'rarejob'
-        target = "reserveBtn"
-        session.visit "http://#{RAREJOB_HOST}/teacher_detail/#{teacher.online_teacher_id}/"
-        opend_teacher = session.html.include?(target)
-        if opend_teacher
-          params = { lesson_number: session.html.scan(target).size }
-          params[:service_name] = 'rarejob'
+
+      if opend_teacher
+        teacher.users.each do |user|
+          UserMailer.notify_teacher(teacher, user, params).deliver_now
         end
       end
-        if opend_teacher
-          teacher.users.each do |user|
-            UserMailer.notify_teacher(teacher, user, params).deliver_now
-          end
-        end
     end
   end
 end
