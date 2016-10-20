@@ -10,6 +10,7 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
 require "sprockets/railtie"
+require 'lib/eikaiwa/crawler'
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -25,7 +26,6 @@ module NotifyBookedTeacher
 
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
-    config.autoload_paths += %W(#{config.root}/lib)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
