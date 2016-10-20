@@ -1,5 +1,5 @@
 require 'capybara/poltergeist'
-require '../eikaiwa/crawler'
+require './lib/eikaiwa/crawler'
 
 namespace :search do
   desc 'seach opened teacher'
