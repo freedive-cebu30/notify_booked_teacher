@@ -26,7 +26,7 @@ module NotifyBookedTeacher
 
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
-    config.autoload_paths += %W(#{config.root}/lib)
+    # config.autoload_paths += %W(#{config.root}/lib)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
