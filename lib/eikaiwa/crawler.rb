@@ -40,6 +40,10 @@ module Eikaiwa
             params = { lesson_number: @session.html.scan(target).size }
             params[:service_name] = 'sankei'
           end
+          Rails.logger.debug '43----------------'
+          Rails.logger.debug opend_teacher
+          Rails.logger.debug params
+          Rails.logger.debug '46----------------'
 
         return [opend_teacher, params]
       end
