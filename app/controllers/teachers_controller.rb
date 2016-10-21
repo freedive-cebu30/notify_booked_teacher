@@ -1,28 +1,20 @@
 class TeachersController < ApplicationController
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
 
-  # GET /teachers
-  # GET /teachers.json
   def index
     @teachers = current_user.teachers
   end
 
-  # GET /teachers/1
-  # GET /teachers/1.json
   def show
   end
 
-  # GET /teachers/new
   def new
     @teacher = Teacher.new
   end
 
-  # GET /teachers/1/edit
   def edit
   end
 
-  # POST /teachers
-  # POST /teachers.json
   def create
       Teacher.transaction do
         @teacher = Teacher.find_or_create_by(online_teacher_id: teacher_params[:online_teacher_id], service_name: teacher_params[:service_name])
@@ -42,8 +34,6 @@ class TeachersController < ApplicationController
       end
   end
 
-  # PATCH/PUT /teachers/1
-  # PATCH/PUT /teachers/1.json
   def update
     respond_to do |format|
       if @teacher.update(teacher_params)
@@ -54,8 +44,6 @@ class TeachersController < ApplicationController
     end
   end
 
-  # DELETE /teachers/1
-  # DELETE /teachers/1.json
   def destroy
     favorite_teacher = FavoriteTeacher.where(user_id: current_user.id).where(teacher_id: @teacher.id).first
     favorite_teacher.destroy

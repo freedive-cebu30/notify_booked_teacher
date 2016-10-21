@@ -1,5 +1,5 @@
 <h5>
-  <%= Time.now %>
+  <%= Time.zone.now.strftime("%F %X") %>
 </h5>
 <h5>
   <%= link_to "#{@teacher.name}のレッスンが#{@lesson_number}スロット空いています", @landing_page %>
