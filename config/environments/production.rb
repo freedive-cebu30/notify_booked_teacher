@@ -82,7 +82,7 @@ Rails.application.configure do
   end
 
   config.enable_dependency_loading = true
-  config.autoload_paths << Rails.root.join('lib')
+  config.autoload_paths += %W(#{config.root}/lib)
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
