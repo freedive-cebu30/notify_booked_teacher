@@ -81,6 +81,9 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.enable_dependency_loading = true
+  config.autoload_paths << Rails.root.join('lib')
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.action_mailer.default_url_options = { host: 'aqueous-spire-22637.herokuapp.com' }
