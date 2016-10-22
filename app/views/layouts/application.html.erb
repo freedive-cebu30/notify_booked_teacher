@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-  <head>
+ <head>
     <title>NotifyBookedTeacher</title>
     <%= csrf_meta_tags %>
 
@@ -50,9 +49,22 @@
       </nav>
     <div class="row">
       <div class="col-md-2">広告スペース</div>
-      <div class="col-md-8">
-        <%= yield %>
-      </div>
+      <% if (controller.controller_name == 'sessions') ||
+                (controller.controller_name == 'passwords') ||
+                (controller.controller_name == 'registrations') ||
+                (controller.controller_name == 'confirmations') %>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4">
+          <%= yield %>
+        </div>
+        <div class="col-md-2">
+        </div>
+      <% else %>
+        <div class="col-md-8">
+          <%= yield %>
+        </div>
+      <% end %>
       <div class="col-md-2">広告スペース</div>
     </div>
   </body>

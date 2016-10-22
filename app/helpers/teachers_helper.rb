@@ -1,7 +1,9 @@
 module TeachersHelper
   def display_active_li(current_action_name, target_action_name)
     tag =
-      if current_action_name == target_action_name
+      if controller.controller_name == 'sessions' || 'passwords' || 'registrations' || 'confirmations'
+        '<li>'
+      elsif current_action_name == target_action_name
         '<li class="active">'
       else
         '<li>'
