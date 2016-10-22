@@ -10,6 +10,7 @@ module Eikaiwa
 
       def run_dmm(teacher)
         dmm_lp = "http://#{DMM_HOST}/teacher/index/#{teacher.online_teacher_id}/"
+        m_dmm_lp = "http://#{DMM_HOST}/teacher/schedule/#{teacher.online_teacher_id}/"
         @session.visit dmm_lp
         target = '>予約可</a>'
         opend_teacher = @session.html.include?(target)
@@ -17,6 +18,7 @@ module Eikaiwa
             params = { lesson_number: @session.html.scan(target).size }
             params[:service_name] = 'dmm'
             params[:landing_page] = dmm_lp
+            params[:m_landing_page] = m_dmm_lp
         end
 
         return [opend_teacher, params]
