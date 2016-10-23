@@ -27,6 +27,7 @@ ja:
   online_teacher_example: "レアジョブの場合"
   online_teacher_rarejob_example: "この先生を登録する場合は20685を入力して下さい"
   service_explanation: "サービスの説明"
+  site_name: "空きレッスン連絡"
   teacher:
     title: "講師"
     name: "講師名"
