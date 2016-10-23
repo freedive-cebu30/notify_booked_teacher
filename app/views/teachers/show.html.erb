@@ -1,17 +1,8 @@
 <p id="notice"><%= notice %></p>
+<ul class="list-group">
+  <li class="list-group-item"><%= t('teacher.name') %>: <%= @teacher.name %></li>
+  <li class="list-group-item"><%= t('teacher.online_teacher') %>: <%= @teacher.online_teacher_id %></li>
+  <li class="list-group-item"><%= t('teacher.service_name') %>: <%= @teacher.service_name %></li>
+</ul>
 
-<p>
-  <strong>Name:</strong>
-  <%= @teacher.name %>
-</p>
-
-<p>
-  <strong>Online teacher:</strong>
-  <%= @teacher.online_teacher_id %>
-</p>
-
-<p>
-  <strong>Service name:</strong>
-  <%= @teacher.service_name %>
-</p>
 
