@@ -2,12 +2,18 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :online_teacher_id %>
-    <%= f.input :service_name, collection: ["dmm", "rarejob", "sankei"] , selected: 1 %>
+    <%= f.input :name, label: t('teacher.name') %>
+    <p class="help-block"><%= t('teacher.online_teacher_explanation') %></p>
+    <%= image_tag 'dmm.png', :size => "500x500" %>
+    <%= f.input :online_teacher_id, label: t('teacher.online_teacher') %>
+    <%= f.input :service_name, collection: {"DMM" => "dmm", "レアジョブ" => "rarejob", "産経" => "sankei"}, selected: 1, label: t('teacher.service_name')%>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit, { class: 'btn btn-info'}  %>
   </div>
 <% end %>
+
+<h4><%= t('online_teacher_example') %></h4>
+<p class="help-block"><%= t('online_teacher_rarejob_example') %></p>
+<%= image_tag 'rarejob.png', :size => "500x500" %>
