@@ -37,3 +37,5 @@ ja:
     list: "講師一覧"
     register: "講師登録"
     created: "登録しました"
+  validation:
+    teacher_limit: 登録できる講師は

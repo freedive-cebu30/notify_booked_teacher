@@ -22,13 +22,17 @@ class TeachersController < ApplicationController
         @teacher.save!
         favorite_teacher = FavoriteTeacher.find_or_create_by(user_id: current_user.id, teacher_id: @teacher.id)
         favorite_teacher.save!
+        limit = current_user.teachers.count
+        current_user.teacher_count = limit
+        current_user.save!
       end
 
       respond_to do |format|
        format.html { redirect_to @teacher, notice: t('teacher.created') }
       end
     rescue => e
-      logger.debug e
+      logger.debug "debug------------ #{e}"
+      @error = e
       respond_to do |format|
        format.html { render :new }
       end
