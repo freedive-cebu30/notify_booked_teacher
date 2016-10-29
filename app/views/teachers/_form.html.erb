@@ -8,9 +8,9 @@
 
   <div class="form-inputs">
     <%= f.input :name, label: t('teacher.name') %>
+    <%= f.input :online_teacher_id, label: t('teacher.online_teacher') %>
     <p class="help-block"><%= t('teacher.online_teacher_explanation') %></p>
     <%= image_tag 'dmm.png', :size => "500x500" %>
-    <%= f.input :online_teacher_id, label: t('teacher.online_teacher') %>
     <%= f.input :service_name, collection: {"DMM" => "dmm", "レアジョブ" => "rarejob", "産経" => "sankei"}, selected: 1, label: t('teacher.service_name')%>
   </div>
 
