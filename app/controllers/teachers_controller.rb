@@ -49,8 +49,13 @@ class TeachersController < ApplicationController
   end
 
   def destroy
-    favorite_teacher = FavoriteTeacher.where(user_id: current_user.id).where(teacher_id: @teacher.id).first
-    favorite_teacher.destroy
+    Teacher.transaction do
+      favorite_teacher = FavoriteTeacher.where(user_id: current_user.id).where(teacher_id: @teacher.id).first
+      favorite_teacher.destroy!
+      limit = current_user.teachers.count
+      current_user.teacher_count = limit
+      current_user.save!
+    end
     respond_to do |format|
       format.html { redirect_to teachers_url, notice: 'Teacher was successfully destroyed.' }
     end
