@@ -50,10 +50,10 @@
                <%= display_active_li(controller.action_name, 'new') %>
                   <%= link_to t('teacher.register'), new_teacher_path %>
                 </li>
+            <% else %>
                 <li>
                   <%= link_to t('sign_in'), new_user_session_path %>
                 </li>
-            <% else %>
                 <li>
                   <%= link_to t('service_explanation'), introductions_path %>
                 </li>
