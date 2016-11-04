@@ -4,7 +4,8 @@ module TeachersHelper
       if ( controller.controller_name == 'sessions' ) ||
          ( controller.controller_name == 'passwords' ) ||
          ( controller.controller_name == 'registrations' ) ||
-         ( controller.controller_name ==  'confirmations' )
+         ( controller.controller_name ==  'confirmations' ) ||
+         ( controller.controller_name ==  'introductions' )
         '<li>'
       elsif current_action_name == target_action_name
         '<li class="active">'
