@@ -10,4 +10,9 @@ class Teacher < ApplicationRecord
   validates :service_name,
                     presence: true,
                     inclusion: { in: %w(dmm rarejob sankei) }
+
+  default_scope -> { where(deleted: false) }
+  scope :dmm_teacher, -> { where(service_name: 'dmm') }
+  scope :rarejob_teacher, -> { where(service_name: 'rarejob') }
+  scope :sankei_teacher, -> { where(service_name: 'sankei') }
 end
