@@ -1,4 +1,4 @@
-json.data @users do |user|
+json.users @users do |user|
     json.id                        user.id
     json.email                  user.email
     json.teacher_limit      user.teacher_limit
